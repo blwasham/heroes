@@ -22,13 +22,15 @@ var AppComponent = (function () {
         this.title = 'Tour of Heroes';
     }
     AppComponent.prototype.getHeroes = function () {
-        this.heroes = this.heroService.getHeroes();
+        var _this = this;
+        this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+    };
+    // lifecycle hook to get hero data when component acxtivates
+    AppComponent.prototype.ngOnInit = function () {
+        this.getHeroes();
     };
     AppComponent.prototype.onSelect = function (hero) {
         this.selectedHero = hero;
-    };
-    AppComponent.prototype.ngOnInit = function () {
-        this.getHeroes();
     };
     return AppComponent;
 }());

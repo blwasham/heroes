@@ -1,7 +1,7 @@
 // Defines the same AppComponent as the one in the QuickStart playground.
 // It is the root component of what will become a tree of nested components
 // as the application evolves.
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
 
@@ -76,22 +76,23 @@ providers: [HeroService]
 })
 
 // component properties
-export class AppComponent {
-  constructor(private heroService: HeroService) { }
-
+export class AppComponent implements OnInit {
   title = 'Tour of Heroes';
-  //heroes = Hero[];
+  heroes: Hero[];
   selectedHero: Hero;
 
+  constructor(private heroService: HeroService) { }
+
   getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+
+  // lifecycle hook to get hero data when component acxtivates
+  ngOnInit(): void {
+    this.getHeroes();
   }
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
-  }
-
-  ngOnInit(): void {
-    this.getHeroes();
   }
 }
