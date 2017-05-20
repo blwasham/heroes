@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common'
 import { Hero } from './hero';
 
+//used with route parameters Observable
 import 'rxjs/add/operator/switchMap';
 
 import { HeroService } from './hero.service';
@@ -31,6 +32,12 @@ export class HeroDetailComponent implements OnInit {
     private location: Location
   ) {}
 
+  //switchmap operator maps id in Observable route parameters to a
+  // new observable which is the result of getHero method
+
+  //if user re-navigates to this while getHero is still in process
+  // switchMap cancels old request and calls getHero again
+  // params are always strings so + operator below converts it to a number
   ngOnInit(): void {
   this.route.params
     .switchMap((params: Params) => this.heroService.getHero(+params['id']))

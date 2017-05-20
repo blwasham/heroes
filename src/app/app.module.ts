@@ -1,7 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'; // make router module available
 
 import { AppComponent }  from './app.component';
 import { HeroDetailComponent } from './hero-detail.component';
@@ -16,6 +16,9 @@ import { DashboardComponent } from './dashboard.component';
   imports: [
     BrowserModule,
     FormsModule, // <-- import the FormsModule before binding with [(ngModel)]
+// forRoot called b/c a configured router is provided at app's root
+// method supplies router service providers and directives needed for routing
+// and performs the initial navigation based on the current browser url
     RouterModule.forRoot([
     {
       path: '',
