@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 // routerLink directive provided by RouterModule
 // string tells router where to navigate
+// this is now called a router component
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Tour of Heroes';

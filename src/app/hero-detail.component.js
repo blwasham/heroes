@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var hero_1 = require("./hero");
+//used with route parameters Observable
 require("rxjs/add/operator/switchMap");
 var hero_service_1 = require("./hero.service");
 // To define a component, you always import the Component symbol.
@@ -26,6 +27,11 @@ var HeroDetailComponent = (function () {
         this.route = route;
         this.location = location;
     }
+    //switchmap operator maps id in Observable route parameters to a
+    // new observable which is the result of getHero method
+    //if user re-navigates to this while getHero is still in process
+    // switchMap cancels old request and calls getHero again
+    // params are always strings so + operator below converts it to a number
     HeroDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params
