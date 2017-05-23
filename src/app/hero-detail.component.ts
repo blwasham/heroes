@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common'
-import { Hero } from './hero';
+//import { Hero } from './hero';
 
 //used with route parameters Observable
 import 'rxjs/add/operator/switchMap';
@@ -18,13 +18,14 @@ import { HeroService } from './hero.service';
 //component metadata
 @Component({
   selector: 'hero-detail',
-  templateUrl: './hero-detail.component.html'
+  templateUrl: './hero-detail.component.html',
+  styleUrls: ['./hero-detail.component.css']
 })
 
 //You must declare a target binding property to be
 //an input property. Otherwise, Angular rejects the binding and throws an error.
 export class HeroDetailComponent implements OnInit {
-  @Input() hero: Hero;
+  //@Input() hero: Hero;
 
   constructor(
     private heroService: HeroService,

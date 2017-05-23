@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
-var hero_1 = require("./hero");
+//import { Hero } from './hero';
 //used with route parameters Observable
 require("rxjs/add/operator/switchMap");
 var hero_service_1 = require("./hero.service");
@@ -22,6 +22,7 @@ var hero_service_1 = require("./hero.service");
 // that property with its template.
 //component metadata
 var HeroDetailComponent = (function () {
+    //@Input() hero: Hero;
     function HeroDetailComponent(heroService, route, location) {
         this.heroService = heroService;
         this.route = route;
@@ -43,14 +44,11 @@ var HeroDetailComponent = (function () {
     };
     return HeroDetailComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", hero_1.Hero)
-], HeroDetailComponent.prototype, "hero", void 0);
 HeroDetailComponent = __decorate([
     core_1.Component({
         selector: 'hero-detail',
-        templateUrl: './hero-detail.component.html'
+        templateUrl: './hero-detail.component.html',
+        styleUrls: ['./hero-detail.component.css']
     }),
     __metadata("design:paramtypes", [hero_service_1.HeroService,
         router_1.ActivatedRoute,
