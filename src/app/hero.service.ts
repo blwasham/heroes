@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable }    from '@angular/core';
+import { Headers, Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
 
 // @Injectable() decorator tells TypeScript to emit
 // metadata about the service. The metadata specifies
@@ -8,17 +9,43 @@ import { HEROES } from './mock-heroes';
 // into this service.
 @Injectable()
 export class HeroService {
+  private heroesUrl = 'api/heroes';  // URL to web api
+  constructor(private http: Http) { }
+
   getHeroes(): Promise<Hero[]> {
-    return Promise.resolve(HEROES);
+    // http.get returns RxJS Observable which helps manage async dataflows
+    return this.http.get(this.heroesUrl)
+               .toPromise()
+               //then callback extracts data from response
+               .then(response => response.json().data as Hero[])
+               .catch(this.handleError);
   }
-  getHeroesSlowly(): Promise<Hero[]> {
-    return new Promise(resolve => {
-      // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(this.getHeroes()), 2000);
-    });
+
+  // in real life you would handle the error in code
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
+
+  // fetch a hero by id
   getHero(id: number): Promise<Hero> {
-    return this.getHeroes()
-      .then(heroes => heroes.find(hero => hero.id === id));
+  const url = `${this.heroesUrl}/${id}`;
+  return this.http.get(url)
+    .toPromise()
+    .then(response => response.json().data as Hero)
+    .catch(this.handleError);
   }
+
+private headers = new Headers({'Content-Type': 'application/json'});
+
+update(hero: Hero): Promise<Hero> {
+  const url = `${this.heroesUrl}/${hero.id}`;
+  return this.http
+    .put(url, JSON.stringify(hero), {headers: this.headers})
+    .toPromise()
+    .then(() => hero)
+    .catch(this.handleError);
+}
+
+
 }

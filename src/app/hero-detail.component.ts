@@ -5,7 +5,6 @@ import { Location } from '@angular/common'
 
 //used with route parameters Observable
 import 'rxjs/add/operator/switchMap';
-
 import { HeroService } from './hero.service';
 
 // To define a component, you always import the Component symbol.
@@ -44,6 +43,14 @@ export class HeroDetailComponent implements OnInit {
     .switchMap((params: Params) => this.heroService.getHero(+params['id']))
     .subscribe(hero => this.hero = hero);
 }
+
+// persist hero name change to heroService, then go back
+save(): void {
+  this.heroService.update(this.hero)
+    .then(() => this.goBack());
+}
+
+
 goBack(): void {
   this.location.back();
 }
