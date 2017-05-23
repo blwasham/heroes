@@ -8,8 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
+//HttpModule contains providers for a complete set of HTTP services
+var http_1 = require("@angular/http");
 //import { RouterModule } from '@angular/router'; // make router module available
 var app_routing_module_1 = require("./app-routing.module");
+// Imports for loading & configuring the in-memory web api
+// InMemoryWebApiModule simulates communciation with remote server
+// by replacing Http client XHR backend with in-memory alternative
+var angular_in_memory_web_api_1 = require("angular-in-memory-web-api");
+var in_memory_data_service_1 = require("./in-memory-data.service");
 var app_component_1 = require("./app.component");
 var hero_detail_component_1 = require("./hero-detail.component");
 var heroes_component_1 = require("./heroes.component");
@@ -28,7 +35,11 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
+            // import FormsModule before binding with [(ngModel)]
             forms_1.FormsModule,
+            http_1.HttpModule,
+            // forRoot config takes inMemService and primes in-memory db
+            angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
             app_routing_module_1.AppRoutingModule
         ],
         declarations: [
