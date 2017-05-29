@@ -2,9 +2,10 @@
 // It is the root component of what will become a tree of nested components
 // as the application evolves.
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
-import { Router } from '@angular/router';
+
 
 // [(ngModel)] is the Angular syntax to bind the hero.name property to the textbox
 // Although NgModel is a valid Angular directive, it isn't available by default.
@@ -23,8 +24,7 @@ export class HeroesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private heroService: HeroService
-  ) { }
+    private heroService: HeroService) { }
 
   getHeroes(): void {
     this.heroService.getHeroes().then(heroes => this.heroes = heroes);
@@ -44,4 +44,14 @@ export class HeroesComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedHero.id]);
   }
+
+  add(name: string): void {
+  name = name.trim();
+  if (!name) { return; }
+  this.heroService.create(name)
+    .then(hero => {
+      this.heroes.push(hero);
+      this.selectedHero = null;
+    });
+}
 }

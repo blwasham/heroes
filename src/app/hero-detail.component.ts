@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common'
 import { Hero } from './hero';
@@ -24,7 +24,7 @@ import { HeroService } from './hero.service';
 //You must declare a target binding property to be
 //an input property. Otherwise, Angular rejects the binding and throws an error.
 export class HeroDetailComponent implements OnInit {
-  @Input() hero: Hero;
+  hero: Hero;
 
   constructor(
     private heroService: HeroService,
@@ -50,10 +50,7 @@ save(): void {
     .then(() => this.goBack());
 }
 
-
 goBack(): void {
   this.location.back();
 }
-
-
 }

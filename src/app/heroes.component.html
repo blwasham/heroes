@@ -1,4 +1,13 @@
 <h2>My Heroes</h2>
+
+<!-- create new hero: call components add function with hero name val -->
+<div>
+  <label>Hero name:</label> <input #heroName />
+  <button (click)="add(heroName.value); heroName.value=''">
+    Add
+  </button>
+</div>
+
 <ul class="heroes">
   <li *ngFor="let hero of heroes"
     [class.selected]="hero === selectedHero"
@@ -12,6 +21,3 @@
   </h2>
   <button (click)="gotoDetail()">View Detail</button>
 </div>
-<!--
-  <hero-detail [hero]="selectedHero"></hero-detail>
--->

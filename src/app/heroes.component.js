@@ -12,8 +12,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // It is the root component of what will become a tree of nested components
 // as the application evolves.
 var core_1 = require("@angular/core");
-var hero_service_1 = require("./hero.service");
 var router_1 = require("@angular/router");
+var hero_service_1 = require("./hero.service");
 // [(ngModel)] is the Angular syntax to bind the hero.name property to the textbox
 // Although NgModel is a valid Angular directive, it isn't available by default.
 // It belongs to the optional FormsModule
@@ -37,6 +37,18 @@ var HeroesComponent = (function () {
     // to router navigate method
     HeroesComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedHero.id]);
+    };
+    HeroesComponent.prototype.add = function (name) {
+        var _this = this;
+        name = name.trim();
+        if (!name) {
+            return;
+        }
+        this.heroService.create(name)
+            .then(function (hero) {
+            _this.heroes.push(hero);
+            _this.selectedHero = null;
+        });
     };
     return HeroesComponent;
 }());

@@ -51,6 +51,13 @@ var HeroService = (function () {
             .then(function () { return hero; })
             .catch(this.handleError);
     };
+    HeroService.prototype.create = function (name) {
+        return this.http
+            .post(this.heroesUrl, JSON.stringify({ name: name }), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json().data; })
+            .catch(this.handleError);
+    };
     return HeroService;
 }());
 HeroService = __decorate([
