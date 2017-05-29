@@ -41,6 +41,8 @@ var HeroService = (function () {
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
+    //use put request to persist server-side changes
+    //put body is the json string encoding of the hero (ie - JSON.stringify(hero)
     HeroService.prototype.update = function (hero) {
         var url = this.heroesUrl + "/" + hero.id;
         return this.http

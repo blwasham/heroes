@@ -38,6 +38,8 @@ export class HeroService {
 
 private headers = new Headers({'Content-Type': 'application/json'});
 
+//use put request to persist server-side changes
+//put body is the json string encoding of the hero (ie - JSON.stringify(hero)
 update(hero: Hero): Promise<Hero> {
   const url = `${this.heroesUrl}/${hero.id}`;
   return this.http
