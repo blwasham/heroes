@@ -50,6 +50,19 @@ var HeroesComponent = (function () {
             _this.selectedHero = null;
         });
     };
+    // delegate hero deletion to service
+    // but component responsible for updating view
+    HeroesComponent.prototype.delete = function (hero) {
+        var _this = this;
+        this.heroService
+            .delete(hero.id)
+            .then(function () {
+            _this.heroes = _this.heroes.filter(function (h) { return h !== hero; });
+            if (_this.selectedHero === hero) {
+                _this.selectedHero = null;
+            }
+        });
+    };
     return HeroesComponent;
 }());
 HeroesComponent = __decorate([
